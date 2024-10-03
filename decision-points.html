@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IRB Decision Points</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">IRB Decision Guide</a>
+    </nav>
+
+    <div class="container">
+        <h2>IRB Decision Points</h2>
+        <p>Select the criteria that apply to your research to determine the correct path:</p>
+        
+        <form id="decisionTree">
+            <div class="form-group">
+                <label>Is your research involving human subjects?</label>
+                <select class="form-control" id="humanSubjects">
+                    <option value="">Select</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="nextStep" style="display: none;">
+                <label>Do you have identifiable private information?</label>
+                <select class="form-control" id="privateInfo">
+                    <option value="">Select</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+
+            <div id="result" style="display: none;">
+                <p id="decisionResult"></p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('humanSubjects').addEventListener('change', function () {
+            if (this.value === 'yes') {
+                document.getElementById('nextStep').style.display = 'block';
+            } else {
+                document.getElementById('nextStep').style.display = 'none';
+                document.getElementById('result').style.display = 'block';
+                document.getElementById('decisionResult').textContent = 'No IRB approval required.';
+            }
+        });
+
+        document.getElementById('privateInfo').addEventListener('change', function () {
+            document.getElementById('result').style.display = 'block';
+            if (this.value === 'yes') {
+                document.getElementById('decisionResult').textContent = 'IRB review required.';
+            } else {
+                document.getElementById('decisionResult').textContent = 'Exempt from IRB review.';
+            }
+        });
+    </script>
+</body>
+</html>
